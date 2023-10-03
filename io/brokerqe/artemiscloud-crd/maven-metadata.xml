@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>io.brokerqe</groupId>
+  <artifactId>artemiscloud-crd</artifactId>
+  <versioning>
+    <release>main</release>
+    <versions>
+      <version>main</version>
+    </versions>
+    <lastUpdated>20231003065658</lastUpdated>
+  </versioning>
+</metadata>

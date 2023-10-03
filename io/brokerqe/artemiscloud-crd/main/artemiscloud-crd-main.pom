@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <description>ArtemisCloud Crd Claire Jar</description>
+    <groupId>io.brokerqe</groupId>
+    <artifactId>artemiscloud-crd</artifactId>
+    <version>main</version>
+    <packaging>jar</packaging>
+    <modelVersion>4.0.0</modelVersion>
+
+    <distributionManagement>
+        <repository>
+            <id>mvn-repo</id>
+            <url>${repo.url}</url>
+        </repository>
+    </distributionManagement>
+
+    <properties>
+        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+
+        <fabric8.version>6.8.1</fabric8.version>
+        <lombok.version>1.18.28</lombok.version>
+        <sundrio.version>0.100.3</sundrio.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.fabric8</groupId>
+            <artifactId>kubernetes-client</artifactId>
+            <version>${fabric8.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.fabric8</groupId>
+            <artifactId>openshift-client</artifactId>
+            <version>${fabric8.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.fabric8</groupId>
+            <artifactId>generator-annotations</artifactId>
+            <version>${fabric8.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.sundr</groupId>
+            <artifactId>builder-annotations</artifactId>
+            <version>${sundrio.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <!-- put crd files into jar -->
+        <resources>
+            <resource>
+                <directory>artemis</directory>
+            </resource>
+        </resources>
+
+        <plugins>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>java-generator-maven-plugin</artifactId>
+                <version>${fabric8.version}</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <source>${project.basedir}/artemis/crds</source>
+                    <extraAnnotations>true</extraAnnotations>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
